@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
-public class PasswordHasher {
+public class SecurityBeans {
 
 	@Bean
     public PasswordEncoder passwordEncoder() {

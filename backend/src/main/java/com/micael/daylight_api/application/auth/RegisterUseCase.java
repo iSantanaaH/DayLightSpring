@@ -32,9 +32,7 @@ public class RegisterUseCase {
 				encodedPassword,
 				registerRequest.getBirthDate(),
 				registerRequest.getGender(),
-				Role.USER,
-				LocalDate.now(),
-				LocalDate.now()
+				Role.USER
 		);
 
 		userRepository.save(user);

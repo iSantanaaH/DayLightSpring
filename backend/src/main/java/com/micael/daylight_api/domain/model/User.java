@@ -37,10 +37,10 @@ public class User {
 	private Role role;
 
 	@Column(nullable = false)
-	private Boolean active;
+	private String status;
 
 	@Column(nullable = false)
-	private Boolean blocked;
+	private Boolean locked;
 
 	@Column(nullable = false)
 	private LocalDate createdAt;
@@ -56,9 +56,7 @@ public class User {
 				String password,
 				LocalDate birthDate,
 				String gender,
-				Role role,
-				LocalDate createdAt,
-				LocalDate updatedAt) {
+				Role role) {
 
 		this.name = name;
 		this.email = email;
@@ -66,8 +64,8 @@ public class User {
 		this.birthDate = birthDate;
 		this.gender = gender;
 		this.role = role;
-		this.active = true;
-		this.blocked = false;
+		this.status = "active";
+		this.locked = false;
 		this.createdAt = LocalDate.now();
 		this.updatedAt = LocalDate.now();
 	}
