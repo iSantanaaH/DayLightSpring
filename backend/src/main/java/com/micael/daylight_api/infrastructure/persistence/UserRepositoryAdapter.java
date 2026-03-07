@@ -20,7 +20,7 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     @Override
-    public User save(User user) {
-      return  jpaUserRepository.save(user);
+    public void save(User user) {
+        jpaUserRepository.save(user);
     }
 }

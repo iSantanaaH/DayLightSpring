@@ -1,19 +1,18 @@
 package com.micael.daylight_api.application.auth;
 
 import com.micael.daylight_api.domain.repository.UserRepository;
-import com.micael.daylight_api.infrastructure.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginUseCase {
     private final UserRepository userRepository;
-    private final JwtService jwtService;
+    private final TokenService tokenService;
     private final PasswordEncoder passwordEncoder;
 
-    public LoginUseCase(UserRepository userRepository, JwtService jwtService, PasswordEncoder passwordEncoder) {
+    public LoginUseCase(UserRepository userRepository, TokenService tokenService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.jwtService = jwtService;
+        this.tokenService = tokenService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -26,7 +25,7 @@ public class LoginUseCase {
             throw new RuntimeException("Invalid credentials");
         }
 
-        String accessToken = jwtService.generateToken(
+        String accessToken = tokenService.generateAccessToken(
                 user.getId().toString(),
                 user.getEmail()
         );

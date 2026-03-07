@@ -1,5 +1,6 @@
 package com.micael.daylight_api.infrastructure.security;
 
+import com.micael.daylight_api.application.auth.TokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +10,7 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Service
-public class JwtService {
+public class JwtService implements TokenService {
     private final SecretKey key;
     private final long expiration;
 
@@ -21,7 +22,7 @@ public class JwtService {
         this.expiration = expiration;
     }
 
-    public String generateToken(String userId, String role) {
+    public String generateAccessToken(String userId, String role) {
         return Jwts.builder()
                 .setSubject(userId)
                 .claim("role", role)
@@ -33,5 +34,9 @@ public class JwtService {
 
     public long getExpiration() {
         return expiration / 1000;
+    }
+
+    public String generateRefreshToken(String accessToken) {
+        return "Bearer " + accessToken;
     }
 }

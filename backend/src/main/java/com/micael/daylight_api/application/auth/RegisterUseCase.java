@@ -20,6 +20,8 @@ public class RegisterUseCase {
 
 	public String register(RegisterRequest registerRequest) {
 
+		System.out.println(registerRequest);
+
 		if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
 			throw new RuntimeException("Email already exists");
 		}
