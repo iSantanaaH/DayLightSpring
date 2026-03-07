@@ -1,6 +1,5 @@
 package com.micael.daylight_api.infrastructure.security;
 
-import com.micael.daylight_api.application.auth.TokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;

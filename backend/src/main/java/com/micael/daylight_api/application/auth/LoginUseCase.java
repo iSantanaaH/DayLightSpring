@@ -1,6 +1,7 @@
 package com.micael.daylight_api.application.auth;
 
 import com.micael.daylight_api.domain.repository.UserRepository;
+import com.micael.daylight_api.infrastructure.security.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ public class LoginUseCase {
                 user.getRole().name(),
                 user.getStatus(),
                 user.getCreatedAt(),
-                user.getUpdatedAt() != null ? user.getUpdatedAt().toString() : null
+                user.getUpdatedAt()
         );
         
         return new LoginResponse(

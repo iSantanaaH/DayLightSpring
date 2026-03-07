@@ -1,4 +1,4 @@
-package com.micael.daylight_api.application.auth;
+package com.micael.daylight_api.infrastructure.security;
 
 public interface TokenService {
     String generateAccessToken(String userId, String role);

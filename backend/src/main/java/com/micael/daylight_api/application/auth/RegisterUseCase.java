@@ -1,5 +1,6 @@
 package com.micael.daylight_api.application.auth;
 
+import com.micael.daylight_api.application.exceptions.EmailAlreadyExistsException;
 import com.micael.daylight_api.domain.enums.Role;
 import com.micael.daylight_api.domain.model.User;
 import com.micael.daylight_api.domain.repository.UserRepository;
@@ -20,10 +21,8 @@ public class RegisterUseCase {
 
 	public String register(RegisterRequest registerRequest) {
 
-		System.out.println(registerRequest);
-
-		if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
-			throw new RuntimeException("Email already exists");
+		if (userRepository.existsByEmail(registerRequest.getEmail())) {
+			throw new EmailAlreadyExistsException();
 		}
 
 		String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());

@@ -30,5 +30,5 @@ public class AuthController {
     return ResponseEntity.ok(loginUseCase.login(request));
    }
 
-   
+
 }
