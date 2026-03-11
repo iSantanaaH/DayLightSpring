@@ -1,12 +1,14 @@
 package com.micael.daylight_api.domain.model;
 
-import com.micael.daylight_api.domain.enums.Role;
+import com.micael.daylight_api.domain.enums.UserGender;
+import com.micael.daylight_api.domain.enums.UserRole;
 import com.micael.daylight_api.domain.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,15 +31,21 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 
-	@Column(nullable = false)
-	private LocalDate birthDate;
+	@Column(nullable = false, unique = true)
+	private String phone;
 
 	@Column(nullable = false)
-	private String gender;
+	private LocalDate birthdate;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private Role role;
+	@JdbcTypeCode(SqlTypes.NAMED_ENUM)
+	@Column(columnDefinition = "gender_type")
+	private UserGender gender;
+
+	@Enumerated(EnumType.STRING)
+	@JdbcTypeCode(SqlTypes.NAMED_ENUM)
+	@Column(nullable = false, columnDefinition = "user_role")
+	private UserRole role;
 
 	@Column(nullable = false)
 	private boolean locked;
@@ -60,15 +68,15 @@ public class User {
 	public User(String name,
 				String email,
 				String password,
-				LocalDate birthDate,
-				String gender,
-				Role role) {
+				String phone,
+				LocalDate birthdate,
+				UserRole role) {
 
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.birthDate = birthDate;
-		this.gender = gender;
+		this.phone = phone;
+		this.birthdate = birthdate;
 		this.role = role;
 		this.status = UserStatus.ACTIVE;
 		this.locked = false;
@@ -90,7 +98,7 @@ public class User {
 		this.locked = locked;
 	}
 
-	public void setGender(String newGender) {
+	public void setGender(UserGender newGender) {
 		this.gender = newGender;
 	}
 

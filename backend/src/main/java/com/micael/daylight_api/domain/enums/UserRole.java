@@ -1,6 +1,6 @@
 package com.micael.daylight_api.domain.enums;
 
-public enum Role {
+public enum UserRole {
     USER,
     ADMIN,
 }

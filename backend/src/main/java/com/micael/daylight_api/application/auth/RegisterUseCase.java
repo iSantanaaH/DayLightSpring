@@ -1,13 +1,11 @@
 package com.micael.daylight_api.application.auth;
 
 import com.micael.daylight_api.application.exceptions.EmailAlreadyExistsException;
-import com.micael.daylight_api.domain.enums.Role;
+import com.micael.daylight_api.domain.enums.UserRole;
 import com.micael.daylight_api.domain.model.User;
 import com.micael.daylight_api.domain.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class RegisterUseCase {
@@ -31,9 +29,9 @@ public class RegisterUseCase {
 				registerRequest.getName(),
 				registerRequest.getEmail(),
 				encodedPassword,
-				registerRequest.getBirthDate(),
-				registerRequest.getGender(),
-				Role.USER
+				registerRequest.getPhone(),
+				registerRequest.getBirthdate(),
+				UserRole.USER
 		);
 
 		userRepository.save(user);

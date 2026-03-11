@@ -5,7 +5,7 @@ CREATE TABLE users (
     password VARCHAR(120) NOT NULL,
     phone VARCHAR(50) NOT NULL UNIQUE,
     birthdate DATE NOT NULL,
-    gender VARCHAR(40) NOT NULL,
+    gender VARCHAR(40),
     role user_role NOT NULL,
     locked BOOLEAN NOT NULL DEFAULT FALSE,
     status VARCHAR(40) NOT NULL,

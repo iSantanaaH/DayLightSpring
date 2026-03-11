@@ -9,8 +9,8 @@ public class RegisterRequest {
     private String name;
     private String email;
     private String password;
-    private LocalDate birthDate;
-    private String gender;
+    private String phone;
+    private LocalDate birthdate;
 
     public RegisterRequest() {}
 }
