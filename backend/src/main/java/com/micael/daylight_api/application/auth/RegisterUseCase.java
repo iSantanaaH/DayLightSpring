@@ -17,7 +17,7 @@ public class RegisterUseCase {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public String register(RegisterRequest registerRequest) {
+	public void register(RegisterRequest registerRequest) {
 
 		if (userRepository.existsByEmail(registerRequest.getEmail())) {
 			throw new ConflictException("Email already exists");
@@ -39,7 +39,5 @@ public class RegisterUseCase {
 		);
 
 		userRepository.save(user);
-
-		return "User registered successfully";
 	}
 }
