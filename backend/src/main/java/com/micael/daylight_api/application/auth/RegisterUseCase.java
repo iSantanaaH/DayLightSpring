@@ -1,6 +1,6 @@
 package com.micael.daylight_api.application.auth;
 
-import com.micael.daylight_api.application.exceptions.EmailAlreadyExistsException;
+import com.micael.daylight_api.application.exceptions.ConflictException;
 import com.micael.daylight_api.domain.enums.UserRole;
 import com.micael.daylight_api.domain.model.User;
 import com.micael.daylight_api.domain.repository.UserRepository;
@@ -20,7 +20,11 @@ public class RegisterUseCase {
 	public String register(RegisterRequest registerRequest) {
 
 		if (userRepository.existsByEmail(registerRequest.getEmail())) {
-			throw new EmailAlreadyExistsException();
+			throw new ConflictException("Email already exists");
+		}
+
+		if (userRepository.existsByPhone(registerRequest.getPhone())) {
+			throw new ConflictException("Phone already exists");
 		}
 
 		String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());

@@ -1,5 +1,6 @@
 package com.micael.daylight_api.application.auth;
 
+import com.micael.daylight_api.application.exceptions.UnauthorizedException;
 import com.micael.daylight_api.domain.repository.UserRepository;
 import com.micael.daylight_api.infrastructure.security.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +24,7 @@ public class LoginUseCase {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (!passwordEncoder.matches(loginResquest.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new UnauthorizedException("Invalid credentials");
         }
 
         String accessToken = tokenService.generateAccessToken(
