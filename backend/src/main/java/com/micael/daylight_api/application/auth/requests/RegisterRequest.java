@@ -1,4 +1,4 @@
-package com.micael.daylight_api.application.auth;
+package com.micael.daylight_api.application.auth.requests;
 
 import lombok.Getter;
 
@@ -12,5 +12,6 @@ public class RegisterRequest {
     private String phone;
     private LocalDate birthdate;
 
-    public RegisterRequest() {}
+    public RegisterRequest() {
+    }
 }

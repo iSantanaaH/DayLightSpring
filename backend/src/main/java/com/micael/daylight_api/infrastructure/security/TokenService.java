@@ -1,9 +1,15 @@
 package com.micael.daylight_api.infrastructure.security;
 
+
+import com.micael.daylight_api.domain.model.AccessTokenValue;
+import com.micael.daylight_api.domain.model.RefreshTokenValue;
+
 public interface TokenService {
-    String generateAccessToken(String userId, String role);
+    AccessTokenValue generateAccessToken(String userId, String role);
 
-    String generateRefreshToken(String accessToken);
+    RefreshTokenValue generateRefreshToken();
 
-    long getExpiration();
+    long getAccessTokenExpiration();
+
+    long getRefreshTokenExpiration();
 }

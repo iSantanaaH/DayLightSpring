@@ -1,4 +1,4 @@
-package com.micael.daylight_api.application.auth;
+package com.micael.daylight_api.application.auth.requests;
 
 import lombok.Getter;
 
@@ -7,5 +7,6 @@ public class LoginResquest {
     private String email;
     private String password;
 
-    public LoginResquest() {}
+    public LoginResquest() {
+    }
 }
