@@ -8,7 +8,7 @@ import com.micael.daylight_api.infrastructure.security.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Service
 public class RefreshTokenUseCase {
@@ -34,11 +34,11 @@ public class RefreshTokenUseCase {
             throw new UnauthorizedException("Invalid refresh token");
         }
 
-        if (token.getExpires_at().isBefore(LocalDateTime.now())) {
+        if (token.getExpiresAt().isBefore(Instant.now())) {
             throw new UnauthorizedException("Refresh token is expired");
         }
 
-        token.setRevoked();
+        token.revoked();
         refreshTokenRepository.save(token);
 
         var newRefreshToken = tokenService.generateRefreshToken();

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
@@ -30,14 +30,16 @@ public class JwtService implements TokenService {
 
     @Override
     public AccessTokenValue generateAccessToken(String userId, String role) {
-        LocalDateTime expireAt = LocalDateTime.now()
-                .plusSeconds(accessTokenExpiration / 1000);
+        Instant expireAt = Instant.now()
+                .plusMillis(accessTokenExpiration);
+
+        Instant now = Instant.now();
 
         String token = Jwts.builder()
-                .setSubject(userId)
+                .subject(userId)
                 .claim("role", role)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpiration))
+                .issuedAt(Date.from(now))
+                .expiration(Date.from(now.plusMillis(refreshTokenExpiration)))
                 .signWith(key)
                 .compact();
 
@@ -46,8 +48,9 @@ public class JwtService implements TokenService {
 
     public RefreshTokenValue generateRefreshToken() {
         String token = UUID.randomUUID().toString();
-        LocalDateTime expiresAt = LocalDateTime.now()
-                .plusSeconds(refreshTokenExpiration / 1000);
+
+        Instant expiresAt = Instant.now()
+                .plusMillis(refreshTokenExpiration);
 
         return new RefreshTokenValue(
                 token,

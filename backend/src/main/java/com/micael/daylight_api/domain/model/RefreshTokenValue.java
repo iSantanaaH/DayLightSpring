@@ -1,9 +1,9 @@
 package com.micael.daylight_api.domain.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record RefreshTokenValue(
         String value,
-        LocalDateTime expiresAt
+        Instant expiresAt
 ) {
 }
