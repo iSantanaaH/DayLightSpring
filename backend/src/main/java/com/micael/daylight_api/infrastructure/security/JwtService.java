@@ -31,7 +31,7 @@ public class JwtService implements TokenService {
     @Override
     public AccessTokenValue generateAccessToken(String userId, String role) {
         LocalDateTime expireAt = LocalDateTime.now()
-                .plusMinutes(accessTokenExpiration / 1000);
+                .plusSeconds(accessTokenExpiration / 1000);
 
         String token = Jwts.builder()
                 .setSubject(userId)
