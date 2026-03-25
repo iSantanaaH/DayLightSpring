@@ -3,7 +3,7 @@ package com.micael.daylight_api.domain.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "refresh_token")
@@ -17,8 +17,8 @@ public class RefreshToken {
     @Column(nullable = false)
     private String token;
 
-    @Column(nullable = false)
-    private LocalDateTime expires_at;
+    @Column(name = "expires_at", nullable = false)
+    private Instant expiresAt;
 
     @Column(nullable = false)
     private boolean revoked;
@@ -27,21 +27,30 @@ public class RefreshToken {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt;
 
-    public RefreshToken() {
+    protected RefreshToken() {
     }
 
-    public RefreshToken(String token, LocalDateTime expires_at, boolean revoked, User user, LocalDateTime created_at) {
+    private RefreshToken(String token, Instant expiresAt, boolean revoked, User user, Instant createdAt) {
         this.token = token;
-        this.expires_at = expires_at;
-        this.revoked = false;
+        this.expiresAt = expiresAt;
+        this.revoked = revoked;
         this.user = user;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
 
-    public void setRevoked() {
+    public static RefreshToken create(String token, Instant expiresAt, User user) {
+        return new RefreshToken(
+                token,
+                expiresAt,
+                false,
+                user,
+                Instant.now());
+    }
+
+    public void revoked() {
         this.revoked = true;
     }
 }

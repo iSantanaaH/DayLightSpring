@@ -14,8 +14,6 @@ import com.micael.daylight_api.infrastructure.security.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 @Service
 public class LoginUseCase {
     private final UserRepository userRepository;
@@ -51,17 +49,13 @@ public class LoginUseCase {
         RefreshTokenValue refreshToken = tokenService.generateRefreshToken();
         String refreshTokenHashed = passwordEncoder.encode(refreshToken.value());
 
-        RefreshToken entity = new RefreshToken(
+        RefreshToken entity = RefreshToken.create(
                 refreshTokenHashed,
                 refreshToken.expiresAt(),
-                false,
-                user,
-                LocalDateTime.now()
+                user
         );
 
-        System.out.println("o log está aqui" + entity);
         refreshTokenRepository.save(entity);
-
 
         var userResponse = new UserResponse(
                 user.getId(),
@@ -69,7 +63,6 @@ public class LoginUseCase {
                 user.getEmail(),
                 user.getStatus()
         );
-
 
         return new LoginResponse(
                 accessToken,
