@@ -1,12 +1,9 @@
 package com.micael.daylight_api.application.auth.requests;
 
-import lombok.Getter;
+import jakarta.validation.constraints.NotBlank;
 
-@Getter
-public class LoginResquest {
-    private String email;
-    private String password;
-
-    public LoginResquest() {
-    }
+public record LoginResquest(
+        @NotBlank String email,
+        @NotBlank String password
+) {
 }

@@ -55,7 +55,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>>
-    login(@RequestBody LoginResquest request) {
+    login(@Valid @RequestBody LoginResquest request) {
         LoginResponse authenticateUser = loginUseCase.login(request);
 
         ApiResponse<LoginResponse> response = new ApiResponse<>(
