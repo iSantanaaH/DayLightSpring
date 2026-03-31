@@ -40,7 +40,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<Void>>
-    register(@RequestBody RegisterRequest request) {
+    register(@Valid @RequestBody RegisterRequest request) {
         registerUseCase.register(request);
 
         ApiResponse<Void> response = new ApiResponse<>(

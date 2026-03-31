@@ -1,17 +1,14 @@
 package com.micael.daylight_api.application.auth.requests;
 
-import lombok.Getter;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
-@Getter
-public class RegisterRequest {
-    private String name;
-    private String email;
-    private String password;
-    private String phone;
-    private LocalDate birthdate;
-
-    public RegisterRequest() {
-    }
+public record RegisterRequest(
+        @NotBlank String name,
+        @NotBlank String email,
+        @NotBlank String password,
+        @NotBlank String phone,
+        @NotBlank LocalDate birthdate
+) {
 }
