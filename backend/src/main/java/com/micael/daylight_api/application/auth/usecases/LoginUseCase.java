@@ -34,10 +34,10 @@ public class LoginUseCase {
     }
 
     public LoginResponse login(LoginResquest loginResquest) {
-        var user = userRepository.findByEmail(loginResquest.getEmail())
+        var user = userRepository.findByEmail(loginResquest.email())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        if (!passwordEncoder.matches(loginResquest.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(loginResquest.password(), user.getPassword())) {
             throw new BadRequestException("Invalid credentials");
         }
 

@@ -19,22 +19,22 @@ public class RegisterUseCase {
 
     public void register(RegisterRequest registerRequest) {
 
-        if (userRepository.existsByEmail(registerRequest.getEmail())) {
+        if (userRepository.existsByEmail(registerRequest.email())) {
             throw new ConflictException("Email already exists");
         }
 
-        if (userRepository.existsByPhone(registerRequest.getPhone())) {
+        if (userRepository.existsByPhone(registerRequest.phone())) {
             throw new ConflictException("Phone already exists");
         }
 
-        String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
+        String encodedPassword = passwordEncoder.encode(registerRequest.password());
 
         User user = User.create(
-                registerRequest.getName(),
-                registerRequest.getEmail(),
+                registerRequest.name(),
+                registerRequest.email(),
                 encodedPassword,
-                registerRequest.getPhone(),
-                registerRequest.getBirthdate()
+                registerRequest.phone(),
+                registerRequest.birthdate()
         );
 
         userRepository.save(user);
