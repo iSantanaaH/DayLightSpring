@@ -1,6 +1,6 @@
 package com.micael.daylight_api.application.auth.usecases;
 
-import com.micael.daylight_api.application.auth.requests.LoginResquest;
+import com.micael.daylight_api.application.auth.requests.LoginRequest;
 import com.micael.daylight_api.application.auth.responses.LoginResponse;
 import com.micael.daylight_api.application.auth.responses.UserResponse;
 import com.micael.daylight_api.application.exceptions.BadRequestException;
@@ -33,7 +33,7 @@ public class LoginUseCase {
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
-    public LoginResponse login(LoginResquest loginResquest) {
+    public LoginResponse login(LoginRequest loginResquest) {
         var user = userRepository.findByEmail(loginResquest.email())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 

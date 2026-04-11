@@ -1,7 +1,8 @@
 package com.micael.daylight_api.api.controllers;
 
 import com.micael.daylight_api.api.response.ApiResponse;
-import com.micael.daylight_api.application.auth.requests.LoginResquest;
+import com.micael.daylight_api.api.response.ResponseFactory;
+import com.micael.daylight_api.application.auth.requests.LoginRequest;
 import com.micael.daylight_api.application.auth.requests.RefreshTokenRequest;
 import com.micael.daylight_api.application.auth.requests.RegisterRequest;
 import com.micael.daylight_api.application.auth.responses.LoginResponse;
@@ -10,15 +11,12 @@ import com.micael.daylight_api.application.auth.usecases.LoginUseCase;
 import com.micael.daylight_api.application.auth.usecases.RefreshTokenUseCase;
 import com.micael.daylight_api.application.auth.usecases.RegisterUseCase;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,7 +25,6 @@ public class AuthController {
     private final RegisterUseCase registerUseCase;
     private final RefreshTokenUseCase refreshTokenUseCase;
 
-    @Autowired
     public AuthController(
             LoginUseCase loginUseCase,
             RegisterUseCase registerUseCase,
@@ -43,29 +40,23 @@ public class AuthController {
     register(@Valid @RequestBody RegisterRequest request) {
         registerUseCase.register(request);
 
-        ApiResponse<Void> response = new ApiResponse<>(
-                201,
+        return ResponseFactory.success(
+                HttpStatus.CREATED,
                 "user registered successfully",
-                LocalDateTime.now(),
                 null
         );
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>>
-    login(@Valid @RequestBody LoginResquest request) {
+    login(@Valid @RequestBody LoginRequest request) {
         LoginResponse authenticateUser = loginUseCase.login(request);
 
-        ApiResponse<LoginResponse> response = new ApiResponse<>(
-                200,
-                "login successful",
-                LocalDateTime.now(),
+        return ResponseFactory.success(
+                HttpStatus.OK,
+                "user login successfully",
                 authenticateUser
         );
-
-        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/refresh_token")
@@ -74,13 +65,10 @@ public class AuthController {
 
         RefreshTokenResponse refreshToken = refreshTokenUseCase.refreshToken(request);
 
-        ApiResponse<RefreshTokenResponse> response = new ApiResponse<>(
-                200,
-                "re authenticated with success",
-                LocalDateTime.now(),
+        return ResponseFactory.success(
+                HttpStatus.OK,
+                "refresh token successfully",
                 refreshToken
         );
-
-        return ResponseEntity.ok(response);
     }
 }

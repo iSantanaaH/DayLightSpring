@@ -1,6 +1,6 @@
 package com.micael.daylight_api.application.auth.usecases;
 
-import com.micael.daylight_api.application.auth.requests.LoginResquest;
+import com.micael.daylight_api.application.auth.requests.LoginRequest;
 import com.micael.daylight_api.domain.model.AccessTokenValue;
 import com.micael.daylight_api.domain.model.RefreshToken;
 import com.micael.daylight_api.domain.model.RefreshTokenValue;
@@ -41,7 +41,7 @@ public class LoginUseCaseTest {
 
     @Test
     void should_login_successfully() {
-        var request = new LoginResquest("teste@teste.com", "12345678");
+        var request = new LoginRequest("teste@teste.com", "12345678");
 
         var user = UserTestBuilder.userForLogin(
                 "teste@teste.com",
