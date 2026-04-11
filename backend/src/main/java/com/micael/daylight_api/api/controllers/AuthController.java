@@ -67,7 +67,7 @@ public class AuthController {
 
         return ResponseFactory.success(
                 HttpStatus.OK,
-                "refresh token successfully",
+                "token refreshed successfully",
                 refreshToken
         );
     }
