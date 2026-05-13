@@ -39,7 +39,7 @@ public class JwtService implements TokenService {
                 .subject(userId)
                 .claim("role", role)
                 .issuedAt(Date.from(now))
-                .expiration(Date.from(now.plusMillis(refreshTokenExpiration)))
+                .expiration(Date.from(now.plusMillis(accessTokenExpiration)))
                 .signWith(key)
                 .compact();
 
@@ -58,11 +58,11 @@ public class JwtService implements TokenService {
         );
     }
 
-    public long getAccessTokenExpiration() {
-        return accessTokenExpiration / 1000;
+    public Instant getAccessTokenExpiration() {
+        return Instant.now().plusMillis(accessTokenExpiration);
     }
 
-    public long getRefreshTokenExpiration() {
-        return refreshTokenExpiration / 1000;
+    public Instant getRefreshTokenExpiration() {
+        return Instant.now().plusMillis(refreshTokenExpiration);
     }
 }

@@ -27,7 +27,7 @@ public class RefreshTokenUseCase {
 
     public RefreshTokenResponse refreshToken(RefreshTokenRequest request) {
 
-        var token = refreshTokenRepository.findByToken(request.refreshToken().value())
+        var token = refreshTokenRepository.findByToken(request.refreshToken())
                 .orElseThrow(() -> new UnauthorizedException("Invalid refresh token"));
 
         if (token.isRevoked()) {

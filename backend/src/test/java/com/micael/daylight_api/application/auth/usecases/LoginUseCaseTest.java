@@ -3,7 +3,6 @@ package com.micael.daylight_api.application.auth.usecases;
 import com.micael.daylight_api.application.auth.requests.LoginRequest;
 import com.micael.daylight_api.domain.model.AccessTokenValue;
 import com.micael.daylight_api.domain.model.RefreshToken;
-import com.micael.daylight_api.domain.model.RefreshTokenValue;
 import com.micael.daylight_api.domain.repository.RefreshTokenRepository;
 import com.micael.daylight_api.domain.repository.UserRepository;
 import com.micael.daylight_api.infrastructure.security.TokenService;

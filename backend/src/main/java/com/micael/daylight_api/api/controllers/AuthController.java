@@ -62,7 +62,7 @@ public class AuthController {
     @PostMapping("/refresh-token")
     public ResponseEntity<ApiResponse<RefreshTokenResponse>>
     refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
-
+        System.out.println("o RefreshToken é:" + request.refreshToken());
         RefreshTokenResponse refreshToken = refreshTokenUseCase.refreshToken(request);
 
         return ResponseFactory.success(

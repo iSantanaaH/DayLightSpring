@@ -7,7 +7,6 @@ import com.micael.daylight_api.application.exceptions.BadRequestException;
 import com.micael.daylight_api.application.exceptions.NotFoundException;
 import com.micael.daylight_api.domain.model.AccessTokenValue;
 import com.micael.daylight_api.domain.model.RefreshToken;
-import com.micael.daylight_api.domain.model.RefreshTokenValue;
 import com.micael.daylight_api.domain.repository.RefreshTokenRepository;
 import com.micael.daylight_api.domain.repository.UserRepository;
 import com.micael.daylight_api.infrastructure.security.TokenService;
@@ -46,12 +45,12 @@ public class LoginUseCase {
                 user.getEmail()
         );
 
-        RefreshTokenValue refreshToken = tokenService.generateRefreshToken();
-        String refreshTokenHashed = passwordEncoder.encode(refreshToken.value());
+        String refreshToken = tokenService.generateRefreshToken().value();
+        String refreshTokenHashed = passwordEncoder.encode(refreshToken);
 
         RefreshToken entity = RefreshToken.create(
                 refreshTokenHashed,
-                refreshToken.expiresAt(),
+                tokenService.getRefreshTokenExpiration(),
                 user
         );
 
